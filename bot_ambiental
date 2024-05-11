@@ -1,0 +1,30 @@
+import random
+import discord
+coin = ["cara","sello"]
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.Client(intents=intents)
+noticia = ["https://www.elespectador.com/ambiente/","https://noticiasambientales.com/","https://es.mongabay.com/",
+           "https://www.bbc.com/mundo/topics/cjgn709jk16t","https://www.nationalgeographic.es/medio-ambiente",
+           "https://www.elmundo.es/t/me/medio-ambiente.html","https://es.euronews.com/tag/medio-ambiente",
+           ""]
+@client.event
+async def on_ready():
+    print(f'Hemos iniciado sesión como {client.user}')
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('hello'):
+        await message.channel.send("Hi!")
+    elif message.content.startswith('Lanzala'):
+        coin_answer = random.choice(coin)
+        await message.channel.send(coin_answer)
+    elif message.content.startswith('hola'):
+        await message.channel.send("Hola")
+    elif message.content.startswith("noticia"):
+        noticia_ = random.choice(noticia)
+        await message.channel.send(noticia_)
+    else:
+        await message.channel.send("XD")
+client.run("")
